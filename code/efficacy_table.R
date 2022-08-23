@@ -150,7 +150,6 @@ tfrmt_14_3_05 <- tfrmt_eff %>%
 
 ### Load Efficacy ARD ---------------------------------------------------------
 
-callr::r_
 efficacy_env <- new.env()
 sys.source(here::here("ARD/make_efficacy_ARD.R"),envir = efficacy_env)
 efficacy_ARD <- efficacy_env$efficacy_ARD
