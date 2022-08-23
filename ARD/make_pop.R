@@ -41,3 +41,5 @@ pop_ard <-
     )
   ) %>%
   bind_rows(long_big_n)
+
+rm(adam_adsl, big_n, long_big_n)
