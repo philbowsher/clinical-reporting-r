@@ -30,7 +30,7 @@ tfrmt_eff <- tfrmt(
   group = row_label_group, ## Grouping of rows/data
   label = row_label, ## Row-level labels
   param = param, ## Defines value "types"
-  values = values, # values to display in table body
+  value = values, # values to display in table body
 
   ## define order to display
   sorting_cols = c(ord_group, ord_row_lab)
@@ -167,7 +167,7 @@ conditional_frmt <- frmt_when(
 
 # Preview how the frmt_when may impact the content
 apply_frmt(
-  frmt_def = interesting_frmt,
+  frmt_def = conditional_frmt,
   .data = tibble::tibble(x = c(11,9,2,.005,NA)),
   values = rlang::quo(x)
 )
