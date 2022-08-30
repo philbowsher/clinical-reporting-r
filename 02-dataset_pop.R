@@ -34,16 +34,18 @@ n_tfrmt <- my_rounded_tfrmt %>%
     big_n = big_n_structure(param_val = "N")
   )
 
-print_to_gt(.tfrmt = n_tfrmt, .data = pop_ard)
+print_to_gt(tfrmt = n_tfrmt, .data = pop_ard)
 
 
-# The final thing we need to do is sort out the columns
+# The final things we need to do are sort out the columns, and row order
 n_tfrmt %>%
   tfrmt(
+    sorting_cols = order,
     col_plan = col_plan(
       starts_with("Xanomeline"),
       "Placebo",
-      "Total"
+      "Total",
+      -order
     )
   ) %>%
   print_to_gt(.data = pop_ard)
@@ -55,6 +57,7 @@ pop_tbl_tfrmt <- tfrmt(
   label = name,
   param = param,
   value = value,
+  sorting_cols = order,
   body_plan = body_plan(
     frmt_structure(group_val = ".default", label_val = ".default",
                    frmt_combine("{n} ({pct}%)",
@@ -65,7 +68,8 @@ pop_tbl_tfrmt <- tfrmt(
   col_plan = col_plan(
     starts_with("Xanomeline"),
     "Placebo",
-    "Total"
+    "Total",
+    -order
   )
 )
 

@@ -10,10 +10,11 @@ big_n_rows <-
 
 revised_input_data <-
   pop_ard %>%
-  arrange(param, desc(value)) %>%
+  arrange(param, order) %>%
   mutate(name = forcats::fct_inorder(name)) %>%
   filter(param != "N") %>%
-  pivot_wider(names_from = c(TRT01A, param), values_from = value)
+  pivot_wider(names_from = c(TRT01A, param), values_from = value) %>%
+  select(-order)
 
 revised_input_data %>%
   gt(rowname_col = "name") %>%

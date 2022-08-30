@@ -17,10 +17,6 @@ long_big_n <-
   pivot_longer(-TRT01A, names_to = "param")
 
 # Population n's
-map(adam_adsl, function(x){
-  attr(x, "label")
-})
-
 pop_ard <-
   adam_adsl %>%
   group_by(TRT01A) %>%
@@ -31,7 +27,17 @@ pop_ard <-
   mutate(pct = value/N*100) %>%
   select(-N, n = value) %>%
   pivot_longer(c("n", "pct"), names_to = "param") %>%
-  mutate(name = case_when(
+  mutate(
+    # Add order columns
+    order = case_when(
+      name == "SAFFL" ~ 1,
+      name == "ITTFL" ~ 2,
+      name == "EFFFL" ~ 3,
+      name == "COMP8FL" ~ 4,
+      name == "COMP16FL" ~ 5,
+      name == "COMP24FL" ~ 6
+    ),
+    name = case_when(
     name == "SAFFL" ~ "Safety Population",
     name == "ITTFL" ~ "Intent-To-Treat Population",
     name == "EFFFL" ~ "Efficacy Population",
