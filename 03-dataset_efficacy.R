@@ -169,7 +169,7 @@ conditional_frmt <- frmt_when(
 apply_frmt(
   frmt_def = conditional_frmt,
   .data = tibble::tibble(x = c(11,9,2,.005,NA)),
-  values = rlang::quo(x)
+  value = rlang::quo(x)
 )
 
 
