@@ -191,4 +191,15 @@ efficacy_ARD <- bind_rows(
   adas_model_diff_results
 )
 
-
+## cleanup
+rm(
+  adas_big_n,
+  adas_total_big_n,
+  adas_summary_stats,
+  adas_model_dose_results,
+  adas_model_diff_results,
+  adas_filtered,
+  calc_summary,
+  calc_model_dose,
+  calc_model_diff
+)

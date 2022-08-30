@@ -2,16 +2,9 @@
 
 library(tfrmt)
 library(gt)
-library(callr)
 
 ## Load Efficacy ARD ---------------------------------------------------------
-
-efficacy_ARD <- callr::r(function(){
-  source(here::here("ARD/make_efficacy_ARD.R"))
-  efficacy_ARD
-})
-
-
+source("ARD/make_efficacy_ARD.R")
 
 ## Define tfrmt for efficacy tables -------------------------------------------
 
@@ -422,6 +415,25 @@ tfrmt_eff_final <- tfrmt(
         ">0.99" ~ ">0.99",
         TRUE ~ frmt("x.xxx", missing = " "))
     )
+  ),
+
+  row_grp_plan = row_grp_plan(
+
+    row_grp_structure(
+      group_val = list(row_label_group = "Change from Baseline"),
+      element_block(post_space = " ")
+    ),
+
+    row_grp_structure(
+      group_val = list(row_label_group = "p-value (Dose Response)"),
+      element_block(post_space = " ")
+    ),
+    row_grp_structure(
+      group_val = list(row_label_group = "p-value (Xanomeline - Placebo)"),
+      element_block(post_space = " ")
+    ),
+
+    label_loc = element_row_grp_loc(location = "indented")
   ),
 
 
