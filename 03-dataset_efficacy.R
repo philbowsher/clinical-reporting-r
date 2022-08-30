@@ -334,7 +334,7 @@ tfrmt_eff_final <- tfrmt(
   group = row_label_group,
   label = row_label,
   param = param,
-  values = values,
+  value = values,
   column = c(treatment, dose),
 
   ## define order to display
