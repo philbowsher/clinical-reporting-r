@@ -27,7 +27,7 @@ gtsave(gt_14_3_05, filename = "gt_14_3_05.docx")
 
 # (1) Styling Table Cells with `tab_style()`: We can target specific cells
 # and modify the styling of cells; let's give all the body cells in the 'n'
-# rows a lightblue background
+# rows a 'lightblue' background
 gt_14_3_05 %>%
   tab_style(
     style = cell_fill(color = "lightblue"),
@@ -47,10 +47,10 @@ gt_14_3_05 %>%
 
 # We can target specific cells in the body with a precise use of
 # `cells_body()` inside of `tab_style()`; here all the p-values will
-# be changed to bold lettering
+# be changed to bold and purple lettering
 gt_14_3_05 %>%
   tab_style(
-    style = cell_text(weight = "bold"),
+    style = cell_text(color = "purple", weight = "bold"),
     locations = cells_body(columns = 4, rows = starts_with("p-value"))
   )
 
