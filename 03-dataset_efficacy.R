@@ -2,16 +2,9 @@
 
 library(tfrmt)
 library(gt)
-library(callr)
 
 ## Load Efficacy ARD ---------------------------------------------------------
-
-efficacy_ARD <- callr::r(function(){
-  source(here::here("ARD/make_efficacy_ARD.R"))
-  efficacy_ARD
-})
-
-
+source("ARD/make_efficacy_ARD.R")
 
 ## Define tfrmt for efficacy tables -------------------------------------------
 
@@ -30,7 +23,7 @@ tfrmt_eff <- tfrmt(
   group = row_label_group, ## Grouping of rows/data
   label = row_label, ## Row-level labels
   param = param, ## Defines value "types"
-  values = values, # values to display in table body
+  value = values, # values to display in table body
 
   ## define order to display
   sorting_cols = c(ord_group, ord_row_lab)
@@ -167,9 +160,9 @@ conditional_frmt <- frmt_when(
 
 # Preview how the frmt_when may impact the content
 apply_frmt(
-  frmt_def = interesting_frmt,
+  frmt_def = conditional_frmt,
   .data = tibble::tibble(x = c(11,9,2,.005,NA)),
-  values = rlang::quo(x)
+  value = rlang::quo(x)
 )
 
 
@@ -334,7 +327,7 @@ tfrmt_eff_final <- tfrmt(
   group = row_label_group,
   label = row_label,
   param = param,
-  values = values,
+  value = values,
   column = c(treatment, dose),
 
   ## define order to display
@@ -422,6 +415,25 @@ tfrmt_eff_final <- tfrmt(
         ">0.99" ~ ">0.99",
         TRUE ~ frmt("x.xxx", missing = " "))
     )
+  ),
+
+  row_grp_plan = row_grp_plan(
+
+    row_grp_structure(
+      group_val = list(row_label_group = "Change from Baseline"),
+      element_block(post_space = " ")
+    ),
+
+    row_grp_structure(
+      group_val = list(row_label_group = "p-value (Dose Response)"),
+      element_block(post_space = " ")
+    ),
+    row_grp_structure(
+      group_val = list(row_label_group = "p-value (Xanomeline - Placebo)"),
+      element_block(post_space = " ")
+    ),
+
+    label_loc = element_row_grp_loc(location = "indented")
   ),
 
 
