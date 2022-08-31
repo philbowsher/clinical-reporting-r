@@ -3,8 +3,11 @@ library(tfrmt)
 
 source("ARD/make_pop.R")
 
+
 # Let's just setup the basics
 my_tfrmt <- tfrmt(
+  title = "My table",
+  subtitle = "Our first table",
   column = TRT01A,
   label = name,
   param = param,
@@ -53,6 +56,8 @@ n_tfrmt %>%
 
 # If we had built this from a ground-up all in one it would look like
 pop_tbl_tfrmt <- tfrmt(
+  title = "My table",
+  subtitle = "Our first table",
   column = TRT01A,
   label = name,
   param = param,
@@ -77,7 +82,6 @@ print_to_gt(tfrmt = pop_tbl_tfrmt, .data = pop_ard)
 
 # We often are make mocks before making tables. To do that you just need to
 # change the printing mechanism
-print_mock_gt(tfrmt = pop_tbl_tfrmt)
 
 TRT01A = c("Xanomeline Low Dose",
            "Xanomeline High Dose",
@@ -92,8 +96,16 @@ label = c("Completers of Week 8 Population",
 mock_data <- crossing(TRT01A = TRT01A,
                       param = c("n", "pct"),
                       name = label
-                      ) %>%
+) %>%
   bind_rows(crossing(TRT01A = TRT01A,
-                     param = c("N")))
+                     param = c("N"))) %>%
+  mutate(order = case_when(
+    name == "Safety Population" ~ 1,
+    name == "Intent-To-Treat Population" ~ 2,
+    name == "Efficacy Population" ~ 3,
+    name == "Completers of Week 8 Population" ~ 4,
+    name == "Completers of Week 16 Population" ~ 5,
+    name ==  "Completers of Week 24 Population" ~ 6
+  ))
 
 print_mock_gt(tfrmt = pop_tbl_tfrmt, .data = mock_data)
